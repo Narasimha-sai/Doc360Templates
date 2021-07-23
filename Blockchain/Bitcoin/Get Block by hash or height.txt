@@ -1,0 +1,493 @@
+## Get Block by hash or height
+**1 credit per API call.**
+
+Gets Bitcoin block detail by block hash or height.
+
+|  AUTHORIZATIONS: | api_token |
+| --- | --- |
+
+:::(Warning) 
+| PATH PARAMETERS | 
+| --- | 
+
+|  PARAMETERS |    TYPE     |       DESCRIPTION |
+| --- | --- | --- |
+| hash (required) |  string | Example: 00000000ca231a439a5c0a86a5a5dd6dc1918a8e897b96522fa9499288e70183 Block hash or height. |
+:::
+## Method
+:::(Info) (GET)
+:::
+
+## URL  
+``` endpoint
+https://api-eu1.tatum.io/v3/bitcoin/block/{hash}
+```
+### Request Samples
+:::(Warning) 
+```cURL
+curl --request GET \
+  --url https://api-eu1.tatum.io/v3/bitcoin/block/{hash} \
+  --header 'x-api-key: REPLACE_KEY_VALUE'
+```     
+``` Node
+const http = require("https");
+
+const options = {
+  "method": "GET",
+  "hostname": "api-eu1.tatum.io",
+  "port": null,
+  "path": "/v3/bitcoin/block/{hash}",
+  "headers": {
+    "x-api-key": "REPLACE_KEY_VALUE"
+  }
+};
+
+const req = http.request(options, function (res) {
+  const chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function () {
+    const body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+});
+
+req.end();
+```
+``` JAVA
+HttpResponse<String> response = Unirest.get("https://api-eu1.tatum.io/v3/bitcoin/block/{hash}")
+  .header("x-api-key", "REPLACE_KEY_VALUE")
+  .asString();
+```
+``` Go
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"io/ioutil"
+)
+
+func main() {
+
+	url := "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}"
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	req.Header.Add("x-api-key", "REPLACE_KEY_VALUE")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+
+}
+```
+``` PHP
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => [
+    "x-api-key: REPLACE_KEY_VALUE"
+  ],
+]);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo "cURL Error #:" . $err;
+} else {
+  echo $response;
+}
+```
+``` Python3
+import http.client
+
+conn = http.client.HTTPSConnection("api-eu1.tatum.io")
+
+headers = { 'x-api-key': "REPLACE_KEY_VALUE" }
+
+conn.request("GET", "/v3/bitcoin/block/{hash}", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+```
+```C
+CURL *hnd = curl_easy_init();
+
+curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+curl_easy_setopt(hnd, CURLOPT_URL, "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}");
+
+struct curl_slist *headers = NULL;
+headers = curl_slist_append(headers, "x-api-key: REPLACE_KEY_VALUE");
+curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+CURLcode ret = curl_easy_perform(hnd);
+```
+``` C-sharp
+var client = new RestClient("https://api-eu1.tatum.io/v3/bitcoin/block/{hash}");
+var request = new RestRequest(Method.GET);
+request.AddHeader("x-api-key", "REPLACE_KEY_VALUE");
+IRestResponse response = client.Execute(request);
+```
+``` Javascript-JQuery
+const settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}",
+  "method": "GET",
+  "headers": {
+    "x-api-key": "REPLACE_KEY_VALUE"
+  }
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+``` Objective-C
+#import <Foundation/Foundation.h>
+
+NSDictionary *headers = @{ @"x-api-key": @"REPLACE_KEY_VALUE" };
+
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://api-eu1.tatum.io/v3/bitcoin/block/{hash}"]
+                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                   timeoutInterval:10.0];
+[request setHTTPMethod:@"GET"];
+[request setAllHTTPHeaderFields:headers];
+
+NSURLSession *session = [NSURLSession sharedSession];
+NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                if (error) {
+                                                    NSLog(@"%@", error);
+                                                } else {
+                                                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                    NSLog(@"%@", httpResponse);
+                                                }
+                                            }];
+[dataTask resume];
+```
+``` Ocaml
+open Cohttp_lwt_unix
+open Cohttp
+open Lwt
+
+let uri = Uri.of_string "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}" in
+let headers = Header.add (Header.init ()) "x-api-key" "REPLACE_KEY_VALUE" in
+
+Client.call ~headers `GET uri
+>>= fun (res, body_stream) ->
+  (* Do stuff with the result *)
+```
+``` Ruby
+require 'uri'
+require 'net/http'
+require 'openssl'
+
+url = URI("https://api-eu1.tatum.io/v3/bitcoin/block/{hash}")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+request = Net::HTTP::Get.new(url)
+request["x-api-key"] = 'REPLACE_KEY_VALUE'
+
+response = http.request(request)
+puts response.read_body
+```
+``` Swift
+import Foundation
+
+let headers = ["x-api-key": "REPLACE_KEY_VALUE"]
+
+let request = NSMutableURLRequest(url: NSURL(string: "https://api-eu1.tatum.io/v3/bitcoin/block/{hash}")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "GET"
+request.allHTTPHeaderFields = headers
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+:::
+##  Response samples
+:::(Info) (200)
+
+| content type | application/json |
+| --- | --- |
+```json
+{
+  "hash": "00000000ca231a439a5c0a86a5a5dd6dc1918a8e897b96522fa9499288e70183",
+  "height": 15235,
+  "depth": 1567867,
+  "version": 1,
+  "prevBlock": "000000006e79360d7b2519410fe5a73e8e08393fd7166620c73c711e4507d9fd",
+  "merkleRoot": "480c227c5042377dbd54464d33e1f59c19fe02fe76d7f55b6955db438479aece",
+  "time": 1338861927,
+  "bits": 486604799,
+  "nonce": 1193572362,
+  "txs": [
+    {
+      "hash": "4c7846a8ff8415945e96937dea27bdb3144c15d793648d725602784826052586",
+      "witnessHash": "4c7846a8ff8415945e96937dea27bdb3144c15d793648d725602784826052586",
+      "fee": 4540,
+      "rate": 20088,
+      "mtime": 1575663337,
+      "height": 1611609,
+      "block": "00000000000001e13fe1eb3977f3379e3d0f6577fc6e087d27db46597ebddb8b",
+      "time": 1575663091,
+      "index": 1,
+      "version": 2,
+      "inputs": [
+        {
+          "prevout": {
+            "hash": "60bc8445c11318e45a72a3259e65118d2f352568757e6ceb8bf1b527ce68379f",
+            "index": 1
+          },
+          "script": "1600148c65244f095f3689aebb70981d102e33036fe786",
+          "witness": "0247304402207d7af97665ef5502c957f76a9fcdde2c228b6a8dc9951d45c318e6dfca0fcd2802207519528d6b61cc044800ab2cb499ef5f31d4decdc327c14fad4abbc3dd6e0190012102861d682cfd3bec8cbed98f5162299ba613bc5f352dd0d51961a5d81359fbc0af",
+          "sequence": 4294967294,
+          "coin": {
+            "version": 2,
+            "height": 1611608,
+            "value": 1341956178,
+            "script": "0014049a97d91d4e1123899bf48c5ba6ce3fd959664e",
+            "address": "tb1qqjdf0kgafcgj8zvm7jx9hfkw8lv4jejw6wsmjg",
+            "coinbase": false
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "value": 2068942,
+          "script": "a914eaf2ad7e161c3ce7092bde14dc5842b642fe925187",
+          "address": "2NEfWpiQwLEcHGbX2Fwij16NDxTEZwHk4BH"
+        }
+      ],
+      "locktime": 1611608
+    }
+  ]
+}
+```
+:::
+:::(Error) (400)
+
+| content type | application/json |
+| --- | --- |
+```json
+{
+  "errorCode": "validation.failed",
+  "message": "Request validation failed. Please see data for additional information.",
+  "statusCode": 400,
+  "data": [
+    {
+      "target": {
+        "property": 12345
+      },
+      "value": 12345,
+      "property": "property1",
+      "constraints": {
+        "min": "property1 must not be less than 50000"
+      }
+    }
+  ]
+}
+```
+:::
+:::(Error) (401)
+
+| content type | application/json |
+| --- | --- |
+
+| Examples | Error401NotActive | 
+| --- | --- |
+
+```json
+{
+  "errorCode": "subscription.not.active",
+  "message": "Subscription not active anymore.",
+  "statusCode": 401
+}
+```
+| Example | Error401Invalid |
+| --- | --- |
+
+``` json
+{
+  "errorCode": "subscription.invalid",
+  "message": "Unable to find valid subscription for '${apiKey}'",
+  "statusCode": 401
+}
+```
+:::
+:::(Error) (403)
+
+| content type | application/json |
+| --- | --- |
+```json
+{
+  "errorCode": "block.hash.not.exists",
+  "message": "No such block.",
+  "statusCode": 403
+}
+```
+:::
+
+:::(Error) (500)
+
+| content type | application/json |
+| --- | --- |
+```json
+{
+  "message": "Internal server error",
+  "statusCode": 500
+}
+```
+:::
+
+## Responses
+:::(Info) (200 OK)
+| RESPONSE SCHEMA:  | application/json |
+| --- | --- |
+
+| Parameters | | | | Type | Decription |
+| --- | --- | --- | --- | --- | --- |
+| hash | | | |string | Hash of block.
+| height | | | |number | The number of blocks preceding a particular block on a block chain. |
+| depth	| | | |number | The number of blocks following a particular block on a block chain, including current one. |
+| version | | | |number | Block version number. |
+| prevBlock | | | | string | Hash of the previous block. |
+| merkleRoot | | | |string | The root node of a merkle tree, a descendant of all the hashed pairs in the tree.|
+| time	| | | |number | Time of the block. |
+| bits |  | | |number | | 
+| nonce | | | |number | Arbitrary number that is used in Bitcoin's proof of work consensus algorithm. |
+| txs | | | | Array of objects (BtcTx) | |
+| | hash | | | string | Transaction hash. |
+| | witnessHash | | | string |Witness hash in case of a SegWit transaction.|
+|  | fee | | | number | Fee paid for this transaction, in satoshis.|
+| | rate | | | number | |
+| | mtime | | | number | |
+| | height | | | number | Height of the block this transaction belongs to.|
+| | block | | | string | Hash of the block this transaction belongs to. | 
+| | time | | | number | Time of the transaction. |
+| | index |	| | number | Index of the transaction in the block. |
+| | version | | |number | Index of the transaction. |
+| | inputs | | | Array of objects | List of transactions, from which assets are being sent.|
+| | | prevout| |object | |
+| | | | hash| string | Transaction hash of the input.|
+| | | | index | number | Transaction index of the input. |
+| | | script | | string | Data generated by a spender which is almost always used as variables to satisfy a pubkey script.|
+| | | witness | | string | Transaction witness.|
+| | | sequence	| | number | |
+| | |coin	| | object | |
+| | | | version | number | |
+| | | | height | number | |
+| | | | value | number | Amount of the transaction, in Satoshis (1 BTC = 100 000 000 Satoshis) |
+| | | | script | string | |
+| | | | address | string | Sender address. |
+| | | | coinbase| boolean | Coinbase transaction - miner fee. |
+| | outputs	| | | Array of objects | List of recipient addresses and amounts to send to each of them.|
+| | | value | | number | Sent amount in satoshis.|
+| | | script | | string | Transaction script.|
+| | | address | | string| Recipient address.|
+| | locktime | | | number | Block this transaction was included in.|
+:::
+:::(Error) (400 Bad Request. Validation failed for the given object in the HTTP Body or Request parameters.)
+
+| RESPONSE SCHEMA:  | application/json |
+| --- | --- |
+
+| Parameters | | | Type | Description |
+| --- | --- | --- | --- | --- |
+| errorCode (required) ||| string | validation.failed |
+| message (required)||| string | Request validation failed. Please see data for additional information. |
+|statusCode (required) ||| number | 400 |
+|data (required) |||Array of objects ||
+|  | target (required)  |   | object  | Request object present in the body of the HTTP request  |
+|   |   | property name*  | any  |   |  
+| | value  |   | number  | Value of the target object which validation is wrong. Can be of any data type, example here is using type number. |
+||  property ||string|Property name of the target object which validation is wrong|	
+| | constraints ||object|Object of failed constraints for the target object. Key is the constraint, value is detailed description of the failed constraint.|
+|   |   | property name*  | any  |   |
+
+:::
+
+:::(Error) (401 Unauthorized. Not valid or inactive subscription key present in the HTTP Header.)
+
+| RESPONSE SCHEMA:  | application/json |
+| --- | --- |
+
+| Error401NotActive |
+| --- |
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| errorCode (required) | string | subscription.not.active |
+| message (required) | string | Subscription not active anymore. |
+| statusCode (required) | number | 401 |
+
+| Error401Invalid |
+| --- |
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| errorCode (required)|string|subscription.invalid|
+| message (required) | string |Unable to find valid subscription for '${apiKey}'|
+| statusCode (required) | number | 401 |
+:::
+
+:::(Error) (403 Forbidden. The request is authenticated, but it is not possible to perform the required operation due to a logical error or invalid permissions.)
+
+| RESPONSE SCHEMA:  | application/json |
+| --- | --- |
+
+| Parameters | Type | Description |
+| --- | --- | --- | 
+| errorCode (required) | string | block.hash.not.exists|
+| message (required) | string | No such block.|
+| statusCode ( required) | number| 403|
+:::
+
+:::(Error) (500 Internal server error. There was an error on the server while processing the request.)
+| RESPONSE SCHEMA:  | application/json |
+| --- | --- |
+
+| Parameters | Type | Description |
+| --- | --- | --- | 
+| message (required) | string | Internal server error |
+| statusCode (required) | number | 500|
+:::
+
+
+
